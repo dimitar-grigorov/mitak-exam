@@ -24,3 +24,15 @@ jobs:
         run: npm run test:unit
       - name: Display SoftUni username
         run: echo "mitak"
+
+  deploy:
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production
+        #uses: johnbeynon/render-deploy-action@v0.0.8
+        uses: fastndead/render-deploy-action@0.0.8-pre
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
+          wait-for-success: true
